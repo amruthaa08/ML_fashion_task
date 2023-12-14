@@ -3,12 +3,12 @@
 **Clone the repository**
 
 ```
-git clone https://github.com/amruthaa08/fashion_task_ML.git
+git clone https://github.com/amruthaa08/ML_fashion_task.git
 ```
 **Navigate into the cloned directory**
 
 ```
-cd fashion_task_ML
+cd ML_fashion_task
 ```
 
 **Build Docker image**
