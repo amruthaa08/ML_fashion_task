@@ -2,25 +2,30 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.exceptions import HTTPException
 
 import pickle
+import os
 from io import BytesIO
 from PIL import Image
-from .utils import cat_model, cat_predict, color_classifier, color_predict
-from .utils import cat_model, cat_predict
+from utils import cat_model, cat_predict, color_classifier, color_predict
 import torch
 from torchvision import models
 
 app = FastAPI(
     title="ML fashion task",
 )
+root_dir = os.path.dirname(os.path.dirname(__file__))
 
 # loading model wights
-cat_model.load_state_dict(torch.load("models/custom_model.pth", map_location=torch.device('cpu')))
+# cat_model.load_state_dict(torch.load("../models/custom_model.pth", map_location=torch.device('cpu')))
+cat_model_path = os.path.join(root_dir, "models/custom_model.pth")
+cat_model.load_state_dict(torch.load(cat_model_path, map_location=torch.device('cpu')))
 cat_model.eval()
 
 # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-device = "cpu"
+# device = "cpu"
 
-color_classifier.load_state_dict(torch.load("models/mc_model.pth", map_location=torch.device('cpu')))
+color_classifier_path = os.path.join(root_dir, "models/mc_model.pth")
+# color_classifier.load_state_dict(torch.load("../models/mc_model.pth", map_location=torch.device('cpu')))
+color_classifier.load_state_dict(torch.load(color_classifier_path, map_location=torch.device('cpu')))
 color_classifier.eval()
 
 # prediction endpoint

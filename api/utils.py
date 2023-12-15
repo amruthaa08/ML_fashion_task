@@ -1,5 +1,6 @@
 
 import torch
+import os
 from torchvision import transforms, models
 
 from torchvision.transforms.functional import resize, to_pil_image
@@ -77,7 +78,10 @@ color_tsfm = transforms.Compose([
 cam_extractor = LayerCAM(color_classifier)
 
 # knn classifier to find closest color
-with open("models/knn_classifier.pkl", 'rb') as f:
+# knn_path =  "../models/knn_classifier.pkl"
+root_dir = os.path.dirname(os.path.dirname(__file__))
+knn_path = os.path.join(root_dir, "models/knn_classifier.pkl")
+with open(knn_path, 'rb') as f:
     knn_classifier = pickle.load(f)
 
 # function to obtain color predictions

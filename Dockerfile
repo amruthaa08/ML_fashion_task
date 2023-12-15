@@ -14,8 +14,12 @@ RUN pip install -r /code/requirements.txt
 COPY ./api /code/api
 COPY ./models /code/models
 
+ENV PYTHONPATH "${PYTHONPATH}:/code/app"
+
 # exposing port
 EXPOSE 8080
 
+WORKDIR /code/api
+
 # command to run api using uvicorn
-CMD ["uvicorn", "api.main:app", "--host=0.0.0.0", "--port=8080"]
+CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8080"]
